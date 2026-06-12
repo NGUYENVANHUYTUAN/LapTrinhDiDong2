@@ -734,7 +734,7 @@ const styles = StyleSheet.create({
   modalAvatarText: {
     color: '#fff',
     fontSize: 28,
-    fontWeight: '950',
+    fontWeight: '900',
   },
   modalUsernameSubtitle: {
     fontSize: 13,

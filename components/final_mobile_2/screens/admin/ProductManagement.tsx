@@ -350,7 +350,7 @@ export default function ProductManagement({ navigation }: any) {
                           { text: 'Hủy', style: 'cancel' },
                           { 
                             text: 'OK', 
-                            onPress: (url) => {
+                            onPress: (url?: string) => {
                               if (url && url.trim()) setImg(url.trim());
                             } 
                           }
@@ -485,7 +485,7 @@ const styles = StyleSheet.create({
   },
   prodPrice: {
     fontSize: 12,
-    fontWeight: '950',
+    fontWeight: '900',
     color: '#d9383a',
   },
   prodCategory: {

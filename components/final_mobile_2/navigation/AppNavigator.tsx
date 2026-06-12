@@ -101,8 +101,18 @@ function MainTabNavigator() {
 
       {/* 2. Điều hướng Tabs dựa trên phân quyền theo yêu cầu */}
       {!isLoggedIn ? (
-        // CHƯA ĐĂNG NHẬP: Home | Signup | Login
+        // CHƯA ĐĂNG NHẬP: Home | Tìm kiếm | Giỏ hàng | Đăng ký | Đăng nhập
         <>
+          <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: 'Tìm kiếm' }} />
+          <Tab.Screen
+            name="CartTab"
+            component={CartScreen}
+            options={{
+              title: 'Giỏ hàng',
+              tabBarBadge: totalCount > 0 ? totalCount : undefined,
+              tabBarBadgeStyle: { backgroundColor: '#d9383a', color: '#fff', fontSize: 10 },
+            }}
+          />
           <Tab.Screen name="RegisterTab" component={RegisterScreen} options={{ title: 'Đăng ký' }} />
           <Tab.Screen name="LoginTab" component={LoginScreen} options={{ title: 'Đăng nhập' }} />
         </>

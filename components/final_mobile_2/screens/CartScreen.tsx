@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useCart, CartItem } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { getProductImageUrl } from './HomeScreen';
@@ -42,6 +43,7 @@ export const getBrandFromName = (name: string) => {
 
 export default function CartScreen({ navigation }: CartScreenProps) {
   const { cart, totalPrice, updateQuantity, removeFromCart, loadCart } = useCart();
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     loadCart();
@@ -54,6 +56,17 @@ export default function CartScreen({ navigation }: CartScreenProps) {
   const handleCheckout = () => {
     if (cart.length === 0) {
       Alert.alert('Thông báo', 'Giỏ hàng của bạn đang trống!');
+      return;
+    }
+    if (!isLoggedIn) {
+      Alert.alert(
+        'Yêu cầu đăng nhập',
+        'Vui lòng đăng nhập để tiến hành thanh toán!',
+        [
+          { text: 'Hủy', style: 'cancel' },
+          { text: 'Đăng nhập', onPress: () => navigation.navigate('LoginTab' as any) }
+        ]
+      );
       return;
     }
     navigation.navigate('Checkout');

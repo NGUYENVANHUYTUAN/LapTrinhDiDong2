@@ -14,7 +14,6 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useCart } from '../context/CartContext';
-import { useAuth } from '../context/AuthContext';
 import * as db from '../database/db';
 import { RootStackParamList } from '../navigation/types';
 import { getProductImageUrl } from './HomeScreen';
@@ -34,7 +33,6 @@ const formatPrice = (value: number) => {
 export default function ProductDetailsScreen({ route, navigation }: ProductDetailsScreenProps) {
   const { productId } = route.params;
   const { addToCart } = useCart();
-  const { isLoggedIn } = useAuth();
   
   const [product, setProduct] = useState<db.Product | null>(null);
   const [loading, setLoading] = useState(true);
@@ -133,17 +131,6 @@ export default function ProductDetailsScreen({ route, navigation }: ProductDetai
   };
 
   const handleAddToCart = async () => {
-    if (!isLoggedIn) {
-      Alert.alert(
-        'Yêu cầu đăng nhập',
-        'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!',
-        [
-          { text: 'Hủy', style: 'cancel' },
-          { text: 'Đăng nhập', onPress: () => navigation.navigate('LoginTab' as any) }
-        ]
-      );
-      return;
-    }
     try {
       await addToCart(product, qty);
       Alert.alert('Thành công', `Đã thêm ${qty} x ${product.name} vào giỏ hàng!`);
@@ -153,17 +140,6 @@ export default function ProductDetailsScreen({ route, navigation }: ProductDetai
   };
 
   const handleBuyNow = async () => {
-    if (!isLoggedIn) {
-      Alert.alert(
-        'Yêu cầu đăng nhập',
-        'Vui lòng đăng nhập để tiến hành đặt hàng!',
-        [
-          { text: 'Hủy', style: 'cancel' },
-          { text: 'Đăng nhập', onPress: () => navigation.navigate('LoginTab' as any) }
-        ]
-      );
-      return;
-    }
     try {
       await addToCart(product, qty);
       navigation.navigate('CartTab' as any);

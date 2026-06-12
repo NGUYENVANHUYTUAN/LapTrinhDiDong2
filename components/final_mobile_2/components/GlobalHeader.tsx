@@ -145,12 +145,7 @@ export default function GlobalHeader({ activeTab = '', hideSubNavBar = false }: 
           <TouchableOpacity
             style={styles.headerActionBtn}
             onPress={() => {
-              if (isLoggedIn) {
-                navigation.navigate('CartTab' as any);
-              } else {
-                Alert.alert('Thông báo', 'Vui lòng đăng nhập để xem giỏ hàng!');
-                navigation.navigate('LoginTab' as any);
-              }
+              navigation.navigate('CartTab' as any);
             }}
           >
             <Ionicons name="cart-outline" size={24} color="#003d79" />

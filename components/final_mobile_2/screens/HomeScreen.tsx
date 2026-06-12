@@ -125,7 +125,6 @@ interface RichProduct extends db.Product {
 
 export default function HomeScreen({ navigation }: HomeScreenProps) {
   const { addToCart } = useCart();
-  const { isLoggedIn } = useAuth();
   const [categories, setCategories] = useState<db.Category[]>([]);
   const [enrichedProducts, setEnrichedProducts] = useState<RichProduct[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -212,17 +211,6 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
   }, []);
 
   const handleAddToCart = async (item: db.Product) => {
-    if (!isLoggedIn) {
-      Alert.alert(
-        'Yêu cầu đăng nhập',
-        'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!',
-        [
-          { text: 'Hủy', style: 'cancel' },
-          { text: 'Đăng nhập', onPress: () => navigation.navigate('LoginTab' as any) }
-        ]
-      );
-      return;
-    }
     try {
       await addToCart(item, 1);
       Alert.alert('Thành công', `Đã thêm ${item.name} vào giỏ hàng!`);
@@ -529,19 +517,11 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
           <Text style={styles.footerHeader}>HUYTUÂN DIGITAL - TECH STORE</Text>
           <View style={styles.addressBlock}>
             <Ionicons name="location-outline" size={14} color="#888" />
-            <Text style={styles.addressText}>Cơ sở 1: 36 Phan Châu Trinh, Hải Châu, Đà Nẵng</Text>
-          </View>
-          <View style={styles.addressBlock}>
-            <Ionicons name="location-outline" size={14} color="#888" />
-            <Text style={styles.addressText}>Cơ sở 2: 179 Nguyễn Văn Linh, Thanh Khê, Đà Nẵng</Text>
-          </View>
-          <View style={styles.addressBlock}>
-            <Ionicons name="location-outline" size={14} color="#888" />
-            <Text style={styles.addressText}>Cơ sở 3: 150 Nguyễn Huệ, TP. Huế</Text>
+            <Text style={styles.addressText}>Địa chỉ: 99 Tô Hiến Thành, TP. Đà Nẵng</Text>
           </View>
           <View style={styles.addressBlock}>
             <Ionicons name="call-outline" size={14} color="#888" />
-            <Text style={styles.addressText}>Hotline: 0905 6 34567 | Chăm sóc khách hàng: 02363 825725</Text>
+            <Text style={styles.addressText}>Hotline: 0934731557</Text>
           </View>
           <View style={styles.copyrightContainer}>
             <Text style={styles.copyrightText}>© 2026 HuyTuân Digital. Thiết kế chuyên nghiệp.</Text>
